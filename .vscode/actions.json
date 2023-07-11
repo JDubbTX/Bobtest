@@ -1,0 +1,11 @@
+[
+    {
+      "name": "Deploy & build all 🔨",
+      "command": "OPT=*EVENTF BUILDLIB=&CURLIB /QOpenSys/pkgs/bin/makei build",
+      "extensions": [
+        "GLOBAL"
+      ],
+      "environment": "pase",
+      "deployFirst": true
+    }
+  ]

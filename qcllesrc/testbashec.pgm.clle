@@ -1,0 +1,22 @@
+PGM
+/* Test return code from QP2SHELL call to bash script */
+
+DCL VAR(&SHELLPATH) TYPE(*CHAR) LEN(100) VALUE('/home/jweiric9/projects/testbasherrorcodes/testbashec.sh')
+DCL VAR(&SHELLPATH2) TYPE(*CHAR) LEN(100)
+DCL VAR(&NULL) TYPE(*CHAR) LEN(1) VALUE(X'00')
+DCL VAR(&BASHERR) TYPE(*CHAR) LEN(3)
+
+CHGVAR VAR(&BASHERR) VALUE('   ')
+CHGDTAARA DTAARA(TESTERRCD) VALUE(&BASHERR)
+
+/* set up variables */
+CHGVAR VAR(&SHELLPATH2) VALUE(&SHELLPATH *TCAT &NULL)
+
+/* call qp2shell2 */
+CALL PGM(QP2SHELL2) PARM((&SHELLPATH2))
+
+/* Retrieve data area that contains return code */
+RTVDTAARA DTAARA(TESTERRCD) RTNVAR(&BASHERR)
+SNDMSG MSG('The return code is: ' *CAT &BASHERR) TOUSR(*REQUESTER)
+
+ENDPGM
